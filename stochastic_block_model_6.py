@@ -1,9 +1,10 @@
 import random 
 from random import randint
-num_nodes = 100
-num_partition = 4
-intra_prop = 0.8
-inter_prop = 0.3
+import sys
+num_nodes = int(sys.argv[1])
+num_partition = float(sys.argv[2])
+intra_prop = float(sys.argv[3])
+inter_prop = float(sys.argv[4])
 ans = []
 for i  in range(num_nodes):
   ans.append([])

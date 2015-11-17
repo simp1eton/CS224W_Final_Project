@@ -1,8 +1,8 @@
 import snap
-
-num_nodes = 5
-forward_prob = 0.5
-backward_prob = 0.5
+import sys
+num_nodes = int(sys.argv[1])
+forward_prob = float(sys.argv[2])
+backward_prob = float(sys.argv[3])
 g = snap.GenForestFire(num_nodes, forward_prob,backward_prob)
 adj_list = []
 for i in range(num_nodes):
