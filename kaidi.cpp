@@ -26,7 +26,7 @@ double evaluation(const set<int>& setOfNodes){
 
     result += minResult;
   }
-  return -result / totalNodes;
+  return -(double)result / totalNodes;
 }
 
 set<int> remain(int budget, const vector<int>& costs,
@@ -139,10 +139,12 @@ int main() {
     }
     edges.push_back(edge);
   }
+  printf("hi\n");
   preprocess();
 
   int budget;
-  cin >> budget;
+  fin >> budget;
+  printf("ok\n");
   vector<int> costs(totalNodes, 1);
   set<int> result = CELF(budget, costs);
   for (auto s: result) cout << s << endl;
