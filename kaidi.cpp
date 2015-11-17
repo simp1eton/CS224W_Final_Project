@@ -71,7 +71,7 @@ set<int> lazyForward(int budget, const vector<int>& costs, int type) {
       if (cur[sBest]) {
         result.insert(sBest);
         remaining = remain(budget, costs, result);
-        cout << "found one ... " << sBest << endl;
+        //cout << "found one ... " << sBest << endl;
         break;
       } else {
         cur[sBest] = true;
@@ -142,17 +142,26 @@ int main() {
   preprocess();
 
   int budget;
-  cin >> budget;
-  vector<int> costs(totalNodes, 1);
-  set<int> result = CELF(budget, costs);
-  for (auto s: result) cout << s << endl;
-  cout << evaluation(result) << endl;
+  // cin >> budget;
 
-  ofstream fout("output.txt");
-  for (int i = 0; i < totalNodes; i++) {
-    for (int j = 0; j < totalNodes; j++) 
-      fout << dist[i][j] << " ";
-    fout << endl;
+  int lower = 1;
+  int higher = 20;
+  // cin >> lower >> higher;
+  for (int i = lower; i <= higher; i++) {
+    budget = i;
+    vector<int> costs(totalNodes, 1);
+    set<int> result = CELF(budget, costs);
+    for (auto s: result) cout << s << endl;
+    cout << budget << " " << evaluation(result) << endl;
+
+    /*
+    ofstream fout("output.txt");
+    for (int i = 0; i < totalNodes; i++) {
+      for (int j = 0; j < totalNodes; j++)
+        fout << dist[i][j] << " ";
+      fout << endl;
+    }
+    */
   }
   return 0;
 }
