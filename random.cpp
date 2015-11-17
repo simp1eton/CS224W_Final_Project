@@ -1,12 +1,11 @@
 #include <iostream>
 #include <cstdio>
 #include <set>
-#include <unistd.h>
+#include <ctime>
 #include <vector>
 #include <algorithm>
 #include <cstring>
 #include <queue>
-#include <ctime>
 using namespace std;
 
 typedef double LF;
@@ -17,8 +16,8 @@ vector <vector <LL> > dist;
 vector <LL> delta, cost;
 int N;
 LL budget;
+clock_t start_time;
 bool uniCost; 
-clock_t start_time; 
 
 struct celf_cmp {
   bool operator() (int a, int b) {
@@ -78,6 +77,7 @@ void read(string filename) {
     }
     G.push_back(edges);
   }
+  fscanf(fin, "%lld",&budget);
   fclose(fin);
 }
 
@@ -111,10 +111,10 @@ set<int> lazyForward(bool isUniCost, set<int> init = set<int>()) {
       }
       else break; 
     }
-  //  printf("%d\n",cur);
+    //printf("%d\n",cur);
     remainingBudget -= (uniCost) ? 1 : cost[cur];
     ret.insert(cur);
-    printf("%lld %.4lf %.4lf\n", budget-remainingBudget, -(LF)eval(ret) / N, (LF)(clock() - start_time) / CLOCKS_PER_SEC);
+    //for (auto s : G[cur]) remaining.erase(s);
   }
   return ret;
 }
@@ -127,12 +127,46 @@ set<int> CELF() {
   //return (eval(A) < eval(B)) ? A : B;
 }
 
+set <int> randomize() {
+  int x = NUM_ITERS;
+  preprocess();
+  set <int> ret;
+  vector <int> A;
+  for (int i=0;i<N;++i) A.push_back(i);
+  while (x--) {
+    random_shuffle(A.begin(), A.end());
+    set <int> init;
+    for (int i=0;i< min((LL)N, 10ll*budget); ++i) init.insert(A[i]);
+    //printf("%d and budget = %lld, N is %d\n",init.size(), budget, N);
+    set <int> cur = lazyForward(1);
+    if (eval(cur) > eval(ret)) ret = cur;
+    if (10 * budget >= N) {
+      printf("%.4lf\n",-(LF)eval(cur) / N);
+      break;
+    }
+    //printf("val = %lld\n",eval(cur));
+  }
+  printf("%lld %.4lf %.4lf\n",budget, -(LF)eval(ret) / N, (LF)(clock() - start_time) / CLOCKS_PER_SEC);
+  return ret;
+}
+
 int main () {
   start_time = clock();
-  //string s;
+  string s;
   //cin >> s;
   //read(s);
   read("input.txt");
-  budget = 200;
-  set <int> sol = CELF();
+  //budget = 200;
+  //set <int> sol = CELF();
+  for (int i=1;i<=200;++i) {
+    budget = i;
+    start_time = clock();
+    randomize();
+  }
+  //printf("value = %lld\n",eval(sol));
+ // for (auto s : sol) printf("%d ",s); printf("\n");
+
+//  sol = randomize();
+//  printf("value = %lld\n",eval(sol));
+//  for (auto s : sol) printf("%d ",s); printf("\n");
 }

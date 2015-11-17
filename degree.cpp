@@ -114,6 +114,7 @@ set<int> lazyForward(bool isUniCost, set<int> init = set<int>()) {
   //  printf("%d\n",cur);
     remainingBudget -= (uniCost) ? 1 : cost[cur];
     ret.insert(cur);
+    for (auto s : G[cur]) remaining.erase(s);
     printf("%lld %.4lf %.4lf\n", budget-remainingBudget, -(LF)eval(ret) / N, (LF)(clock() - start_time) / CLOCKS_PER_SEC);
   }
   return ret;

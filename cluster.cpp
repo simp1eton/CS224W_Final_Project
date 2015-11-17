@@ -13,6 +13,7 @@ typedef double LF;
 typedef long long int LL;
 const int INF = 1000000000, NUM_ITERS = 10;
 vector <vector <int> > G;
+vector <set <int> > Graph;
 vector <vector <LL> > dist;
 vector <LL> delta, cost;
 int N;
@@ -34,7 +35,9 @@ LL eval(set <int> &A) {
   LL ret = 0;
   for (int i=0;i<N;++i) {
     LL cur = INF;
-    for (auto a : A) cur = min(cur, dist[a][i]);
+    for (auto a : A) {
+      cur = min(cur, dist[a][i]);
+    }
     ret += cur;
   }
 //  printf("eval: %d, (", A.size());
@@ -70,13 +73,16 @@ void read(string filename) {
   cost = vector<LL>(N, 1);
   for (int i=0;i<N;++i) {
     vector <int> edges;
+    set <int> blah;
     int K, t;
     fscanf(fin, "%d",&K);
     for (int j=0;j<K;++j) {
       fscanf(fin, "%d",&t);
       edges.push_back(t);
+      blah.insert(t);
     }
     G.push_back(edges);
+    Graph.push_back(blah);
   }
   fclose(fin);
 }
@@ -127,12 +133,33 @@ set<int> CELF() {
   //return (eval(A) < eval(B)) ? A : B;
 }
 
+set <int> cluster() {
+  preprocess();
+  vector <pair<LF,int> > A;
+  for (int i=0;i<N;++i) {
+    LF t = 0.0;
+    for (auto x : G[i])
+      for (auto y : G[i])
+        if (x != y && Graph[x].find(y) != Graph[x].end()) t += 1.0;
+    t = t / G[i].size() / (G[i].size() - 1) * 2.0;
+    A.push_back(pair<LF,int>(t, i));
+  }
+  sort(A.begin(), A.end());
+  reverse(A.begin(), A.end());
+  set <int> ret;
+  for (int i=0;i<budget;++i) ret.insert(A[i].second);
+  printf("%lld %.4lf %.4lf\n", budget, -(LF)eval(ret) / N, (LF)(clock() - start_time) / CLOCKS_PER_SEC);
+  return ret;
+}
+
+
 int main () {
   start_time = clock();
   //string s;
   //cin >> s;
   //read(s);
   read("input.txt");
-  budget = 200;
-  set <int> sol = CELF();
+  for(budget=1;budget<=200;++budget) {
+    cluster();
+  }
 }
