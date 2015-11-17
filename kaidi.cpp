@@ -45,7 +45,7 @@ set<int> remain(int budget, const vector<int>& costs,
 set<int> lazyForward(int budget, const vector<int>& costs, int type) {
   set<int> result;
   set<int> remaining;
-  vector<int> delta(totalNodes, INF);
+  vector<double> delta(totalNodes, INF);
 
   remaining = remain(budget, costs, result);
   while (!remaining.empty()) {

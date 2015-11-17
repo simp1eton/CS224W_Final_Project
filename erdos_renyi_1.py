@@ -1,7 +1,7 @@
 import snap
 
-num_nodes = 5
-num_edges = 6
+num_nodes = 500
+num_edges = 2000
 g = snap.GenRndGnm(snap.PUNGraph, num_nodes, num_edges)
 adj_list = []
 for i in range(num_nodes):
