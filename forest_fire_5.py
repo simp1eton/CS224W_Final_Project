@@ -4,6 +4,7 @@ num_nodes = int(sys.argv[1])
 forward_prob = float(sys.argv[2])
 backward_prob = float(sys.argv[3])
 g = snap.GenForestFire(num_nodes, forward_prob,backward_prob)
+print num_nodes
 adj_list = []
 for i in range(num_nodes):
   adj_list.append([])

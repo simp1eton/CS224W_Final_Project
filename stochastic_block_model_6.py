@@ -3,6 +3,7 @@ from random import randint
 import sys
 num_nodes = int(sys.argv[1])
 num_partition = float(sys.argv[2])
+print num_nodes
 intra_prop = float(sys.argv[3])
 inter_prop = float(sys.argv[4])
 ans = []

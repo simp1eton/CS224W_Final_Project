@@ -2,6 +2,7 @@ import snap
 import sys
 num_nodes = int(sys.argv[1])
 num_edges_per_node = int(sys.argv[2])
+print num_nodes
 beta = float(sys.argv[3])
 Rnd = snap.TRnd()
 g = snap.GenGeoPrefAttach(num_nodes, num_edges_per_node, beta, Rnd)
