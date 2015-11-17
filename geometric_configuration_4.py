@@ -1,8 +1,8 @@
 import snap
-
-num_nodes = 50
-num_edges_per_node = 6
-beta = 0.25
+import sys
+num_nodes = int(sys.argv[1])
+num_edges_per_node = int(sys.argv[2])
+beta = float(sys.argv[3])
 Rnd = snap.TRnd()
 g = snap.GenGeoPrefAttach(num_nodes, num_edges_per_node, beta, Rnd)
 adj_list = []
