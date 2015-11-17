@@ -1,7 +1,7 @@
 import snap
-
-num_nodes = 5
-num_edges = 6
+import sys
+num_nodes = int(sys.argv[1])
+num_edges = int(sys.argv[2])
 g = snap.GenRndGnm(snap.PUNGraph, num_nodes, num_edges)
 adj_list = []
 for i in range(num_nodes):
