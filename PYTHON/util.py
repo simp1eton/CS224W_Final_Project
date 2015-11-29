@@ -34,7 +34,6 @@ class Graph(object):
         dist[neighbor] = distance + 1
     if len(s) != self.N:
       print "The graph is not connected!"
-    print dist
     return max(dist)
       
 
