@@ -23,7 +23,7 @@ if __name__ == "__main__":
     adj_list = graph.G
 
     num_sets = 100
-    threshold = 5
+    threshold = 2
     budget = 10
 
     possible_nodes = set()
@@ -56,6 +56,7 @@ if __name__ == "__main__":
             results.append(max_cover_node)
 
     print results
+    print graph.max_dist(results)
 
 
 
