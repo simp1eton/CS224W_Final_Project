@@ -6,19 +6,18 @@ class Graph(object):
     self.G = G
     self.N = len(G)
 
-  def is_connected(i, j):
+  def is_connected(self, i, j):
     """
       checks if i and j are connected
     """
-    if i >= N or j >= N: return False
-    else: return j in G[i]
+    if i >= self.N or j >= self.N: return False
+    else: return j in self.G[i]
 
-  def max_dist(S):
+  def max_dist(self, S):
     """
       given a list of nodes S, outputs the maximum distance of a node from S
     """
     pass
-
 
 def read_file(filename):
   """
@@ -42,7 +41,7 @@ class MaxHeap(object):
     self.popped = {}
     self.pq = PriorityQueue()
 
-  def pop():
+  def pop(self):
     """
       returns next item on the priority queue. Returns -1 if queue is empty
     """
@@ -53,7 +52,7 @@ class MaxHeap(object):
         return a[1]
     return -1
 
-  def update(x, v):
+  def update(self, x, v):
     """
       updates key x with value v. If x is currently not in the priority queue, x is inserted
     """

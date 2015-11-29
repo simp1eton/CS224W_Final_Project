@@ -1,3 +1,14 @@
-from util import read_file
+from util import (
+  read_file,
+  MaxHeap
+)
 
-read_file("../OLD/input.txt")
+G = read_file("../OLD/input.txt")
+
+PQ = MaxHeap()
+
+for i in range(G.N):
+  PQ.update(i, float("+inf"))
+
+for B in range(10):
+  print B 
