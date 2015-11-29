@@ -2,7 +2,21 @@ from util import read_file
 import random
 
 def generate_set(adj_list, threshold, start):
-    return set()
+    queue = [(start, 0)]
+    visited = set()
+    visited.add(start)
+
+    while len(queue) > 0:
+        front = queue.pop(0)
+        if front[1] > threshold:
+            return visited
+
+        for adj in adj_list[front[0]]:
+            if adj in visited: continue
+            visited.add(adj)
+            queue.append((adj, front[1] + 1))
+    return visited
+
 
 if __name__ == "__main__":
     graph = read_file("input.txt")
@@ -13,10 +27,11 @@ if __name__ == "__main__":
     budget = 10
 
     possible_nodes = set()
-    start_nodes = random.sample(
+    start_nodes = random.sample(range(graph.N), num_sets)
     sets = []
     for start in start_nodes:
         rr_set = generate_set(adj_list, threshold, start)
+
         possible_nodes = possible_nodes.union(rr_set)
         sets.append(rr_set)
 
