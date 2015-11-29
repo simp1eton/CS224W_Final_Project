@@ -1,6 +1,6 @@
 import numpy as np
 from Queue import PriorityQueue
-
+import Queue
 class Graph(object):
   def __init__(self, G):
     self.G = G
@@ -17,7 +17,26 @@ class Graph(object):
     """
       given a list of nodes S, outputs the maximum distance of a node from S
     """
-    pass
+    dist = [0.0] * self.N
+    s = set()
+    q = Queue.Queue()
+    for item in S:
+      s.add(item)
+      q.put(item) 
+    while q.empty() is False:
+      node = q.get();
+      distance = dist[node]
+      for neighbor in self.G[node]:
+        if neighbor in s:
+          continue
+        s.add(neighbor)
+        q.put(neighbor)
+        dist[neighbor] = distance + 1
+    if len(s) != self.N:
+      print "The graph is not connected!"
+    print dist
+    return max(dist)
+      
 
 def read_file(filename):
   """

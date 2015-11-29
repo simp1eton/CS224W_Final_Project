@@ -1,6 +1,7 @@
 import snap
 import sys
 
+# num nodes = 4000 num_edges_per_node = 6
 num_nodes = int(sys.argv[1])
 num_edges_per_node = int(sys.argv[2])
 print num_nodes
@@ -14,6 +15,8 @@ for EI in g.Edges():
   sink = EI.GetDstNId()
   if sink not in adj_list[source]:
     adj_list[source].append(sink)
+  if source not in adj_list[sink]:
+    adj_list[sink].append(source)
 for i in range(num_nodes):
   ans =  str(len(adj_list[i])) + " " 
   for v in adj_list[i]:

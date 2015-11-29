@@ -1,5 +1,7 @@
 import snap
 import sys
+
+#  4000 0.34 0.35
 num_nodes = int(sys.argv[1])
 forward_prob = float(sys.argv[2])
 backward_prob = float(sys.argv[3])

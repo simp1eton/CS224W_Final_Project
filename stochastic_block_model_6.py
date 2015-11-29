@@ -1,6 +1,7 @@
 import random 
 from random import randint
 import sys
+#4000 4 0.005 0.0025
 num_nodes = int(sys.argv[1])
 num_partition = float(sys.argv[2])
 print num_nodes
