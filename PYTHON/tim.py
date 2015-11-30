@@ -21,7 +21,6 @@ def generate_set(adj_list, threshold, start):
 if __name__ == "__main__":
     random.seed()
     graph = read_file("input.txt")
-    graph.preprocess()
     adj_list = graph.G
 
     num_sets = 500
