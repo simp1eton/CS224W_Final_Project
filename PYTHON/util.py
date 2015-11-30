@@ -1,6 +1,8 @@
 import numpy as np
 from Queue import PriorityQueue
 import Queue
+import numpy as np
+
 class Graph(object):
   def __init__(self, G):
     self.G = G
@@ -34,8 +36,18 @@ class Graph(object):
     """
       outputs the average distance to the list of S nodes
     """
-    if not self.processed: return -1
-    return 1.0 * sum(min(self.dist[x][y] for y in S) for x in range(self.N)) / self.N
+    if not self.processed:
+      dist = [-1 for x in range(self.N)]
+      for s in S: dist[s] = 0
+      q = [s for s in S]
+      while len(q) > 0:
+        x = q.pop(0)
+        for y in self.G[x]:
+          if dist[y] == -1:
+            dist[y] = dist[x] + 1
+            q.append(y)
+      return np.mean(dist)
+    else: return 1.0 * sum(min(self.dist[x][y] for y in S) for x in range(self.N)) / self.N
 
 def read_file(filename):
   """
