@@ -19,8 +19,11 @@ for i in range(G.N):
   else:
     mg2 = mg1
   flag = 0
-  PQ.update((i, mg1, prev_best, mg2, flag), G.N * G.N)
-  cur_best = min(cur_best, mg1)
+  PQ.update((i, mg1, prev_best, mg2, flag), G.N)
+  if mg1 < cur_val:
+    cur_val = mg1
+    cur_best = i 
+
 # update
 while len(seed) < budget:
   val, dist = PQ.pop()
@@ -29,23 +32,27 @@ while len(seed) < budget:
   prev_best = val[2]
   mg2 = val[3]
   flag = val[4]
-  if val[4] == len(seed):
+  if flag == len(seed):
     seed = seed.union(set([u]))
     last_seed = u
-    cur_val = mg1
+    cur_val = mg1 
     continue
-  elif val[2] == last_seed:
-    mg1 = val[3]
+  elif prev_best == last_seed:
+    mg1 = mg2
   else:
-    mg1 = G.avg_dist(seed)
+    withU = seed | set([u])
+    mg1 = G.avg_dist(seed) - G.avg_dist(withU)
     prev_best = cur_best
-    if cur_best is not None:
-      mg2 = G.avg_dist(seed.union(set([cur_best])))
-    else:
-      mg2 = G.avg_dist(seed)
+    withU2 = seed | set([u]) | set([cur_best])
+    withoutU = seed | set([cur_best])
+    mg2 = G.avg_dist(withoutU) - G.avg_dist(withU2)
   flag  = len(seed)
-  cur_best = min(cur_best, mg1)
-  PQ.update((u, mg1, prev_best, mg2, flag), cur_val - mg1)
+  if mg1 < cur_val:
+    cur_val = mg1
+    cur_best = u
+ #   print "current best:", cur_best, "u:", u
+#  cur_best = min(cur_best, mg1)
+  PQ.update((u, mg1, prev_best, mg2, flag), mg1)
 
 print seed
 print G.avg_dist(seed) 
