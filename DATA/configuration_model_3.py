@@ -1,9 +1,11 @@
 import snap
 import sys
-num_nodes = 4000
-num_edges = 24000
+num_nodes = 1000
+num_edges = 5000
+Rnd = snap.TRnd(0)
 print num_nodes
-g_original = snap.GenRndGnm(snap.PUNGraph, num_nodes, num_edges)
+g_original = snap.GenRndGnm(snap.PUNGraph, num_nodes, num_edges,
+        False, Rnd)
 g = snap.GenConfModel(g_original)
 adj_list = []
 for i in range(num_nodes):

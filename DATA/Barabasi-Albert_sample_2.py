@@ -5,7 +5,7 @@ import sys
 num_nodes = 4000
 num_edges_per_node = 6
 print num_nodes
-Rnd = snap.TRnd()
+Rnd = snap.TRnd(0)
 g = snap.GenPrefAttach(num_nodes, num_edges_per_node, Rnd)
 adj_list = []
 for i in range(num_nodes):

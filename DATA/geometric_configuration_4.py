@@ -1,7 +1,7 @@
 import snap
 import sys
-num_nodes = 4000
-num_edges_per_node = 6
+num_nodes = 1000
+num_edges_per_node = 5
 print num_nodes
 beta = 0.45
 Rnd = snap.TRnd()
