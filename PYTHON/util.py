@@ -49,6 +49,19 @@ class Graph(object):
       return np.mean(dist)
     else: return 1.0 * sum(min(self.dist[x][y] for y in S) for x in range(self.N)) / self.N
 
+  def mg1_mg2(self, S, u, v):
+    # return (S) - (S+u), (S+v) - (S+v+u)
+    s, su, sv, suv = 0, 0, 0, 0
+    for x in range(self.N):
+      cur = self.N
+      if len(S) > 0:
+        cur = min(cur, min(self.dist[x][y] for y in S))
+      s += cur
+      su += min(cur, self.dist[x][u] if u is not None else self.N)
+      sv += min(cur, self.dist[x][v] if v is not None else self.N)
+      suv += min(cur, self.dist[x][u] if u is not None else self.N, self.dist[x][v] if v is not None else self.N)
+    return 1.0 * (s - su) / self.N, 1.0 * (sv - suv) / self.N
+
 def read_file(filename):
   """
     given a filename, returns a Graph instance of the input graph
@@ -80,16 +93,16 @@ class MaxHeap(object):
       a = self.pq.get()
       if a[1] not in self.popped:
         self.popped.add(a[1])
-        return a[1], -a[0]
-    return (-1, 0)
+        return a[1], -a[0], a[2]
+    return (-1, 0, None)
 
-  def update(self, x, v):
+  def update(self, x, v, aux = None):
     """
       updates key x with value v. If x is currently not in the priority queue, x is inserted
     """
     if x in self.popped:
       self.popped.remove(x)
-    self.pq.put((-v, x))
+    self.pq.put((-v, x, aux))
     
 
 
