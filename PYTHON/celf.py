@@ -2,6 +2,7 @@ from util import (
   read_file,
   MaxHeap
 )
+import time
 
 G = read_file("input.txt")
 G.preprocess()
@@ -13,8 +14,9 @@ for i in range(G.N):
 S = set()
 cur_val = G.N
 
-budget = 10
+budget = 20
 
+start_time = time.time()
 for _ in range(budget):
   while True:
     cur, val = PQ.pop()
@@ -24,6 +26,6 @@ for _ in range(budget):
       cur_val = new_val
       break
     PQ.update(cur, cur_val - new_val)
-
-print S
-print G.avg_dist(S)
+  end_time = time.time()
+  #print S
+  print end_time - start_time, G.avg_dist(S)

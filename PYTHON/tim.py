@@ -1,5 +1,6 @@
 from util import read_file
 import random
+import time
 
 def generate_set(adj_list, threshold, start):
     queue = [(start, 0)]
@@ -25,8 +26,9 @@ if __name__ == "__main__":
 
     num_sets = 500
     threshold = 1
-    budget = 10
+    budget = 20
 
+    start_time = time.time()
     possible_nodes = set()
     start_nodes = random.sample(range(graph.N), num_sets)
     sets = []
@@ -35,9 +37,12 @@ if __name__ == "__main__":
 
         possible_nodes = possible_nodes.union(rr_set)
         sets.append(rr_set)
-
     results = []
+    end_time = time.time()
+    total_time = end_time - start_time
+
     for _ in range(budget):
+        start_time = time.time()
         max_cover_node = None
         max_cover_count = 0
 
@@ -45,7 +50,7 @@ if __name__ == "__main__":
             count = 0
             for rr_set in sets:
                 if node in rr_set: count += 1
-            if count > max_cover_count:
+            if count >= max_cover_count:
                 max_cover_count = count
                 max_cover_node = node
 
@@ -55,9 +60,11 @@ if __name__ == "__main__":
                     sets.remove(rr_set)
             possible_nodes.remove(max_cover_node)
             results.append(max_cover_node)
+        end_time = time.time()
+        total_time += end_time - start_time
 
-    print results
-    print graph.avg_dist(results)
+        #print results
+        print total_time, graph.avg_dist(results)
 
 
 
