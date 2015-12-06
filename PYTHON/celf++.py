@@ -19,7 +19,7 @@ for i in range(G.N):
   else:
     mg2 = mg1
   flag = 0
-  PQ.update((i, mg1, prev_best, mg2, flag), G.N)
+  PQ.update((i, mg1, prev_best, mg2, flag), mg1)
   if mg1 < cur_val:
     cur_val = mg1
     cur_best = i 
@@ -35,7 +35,8 @@ while len(seed) < budget:
   if flag == len(seed):
     seed = seed.union(set([u]))
     last_seed = u
-    cur_val = mg1 
+    if cur_val != mg1:
+      print "ouch",u, len(seed) 
     continue
   elif prev_best == last_seed:
     mg1 = mg2
