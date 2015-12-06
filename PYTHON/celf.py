@@ -11,13 +11,13 @@ for i in range(G.N):
   PQ.update(i, G.N * G.N)
 
 S = set()
-cur_val = G.N
+cur_val = G.N * G.N
 
 budget = 10
 
 for _ in range(budget):
   while True:
-    cur, val = PQ.pop()
+    cur, val, aux = PQ.pop()
     new_val = G.avg_dist(S.union(set([cur]))) 
     if cur_val - new_val == val:
       S.add(cur)
