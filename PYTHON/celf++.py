@@ -4,13 +4,13 @@ from util import (
 )
 G = read_file("../OLD/blah.txt")
 G.preprocess()
-budget = 10
+budget = 20
 seed = set()
 PQ = MaxHeap()
 last_seed = None
 cur_best = None
 cur_val = G.N * G.N
-cur_best_mg1 = cur_val
+cur_best_mg1 = 0
 
 # initialize
 for i in range(G.N):
@@ -29,13 +29,17 @@ while len(seed) < budget:
   if flag == len(seed):
     seed = seed.union(set([u]))
     last_seed = u
+    cur_best_mg1 = 0
     continue
-  elif prev_best == last_seed:
+  elif prev_best == last_seed and flag + 1 == len(seed):
     mg1 = mg2
   else:
     mg1, mg2 = G.mg1_mg2(seed, u, cur_best)
     prev_best = cur_best
   flag = len(seed)
+  if mg1 > cur_best_mg1:
+    cur_best = u
+    cur_best_mg1 = mg1
   PQ.update(u, mg1, (mg2, prev_best, flag))
 
 print seed

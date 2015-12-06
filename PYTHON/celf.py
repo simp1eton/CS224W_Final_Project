@@ -3,7 +3,7 @@ from util import (
   MaxHeap
 )
 
-G = read_file("input.txt")
+G = read_file("blah.txt")
 G.preprocess()
 PQ = MaxHeap()
 
@@ -13,7 +13,7 @@ for i in range(G.N):
 S = set()
 cur_val = G.N * G.N
 
-budget = 10
+budget = 20
 
 for _ in range(budget):
   while True:
