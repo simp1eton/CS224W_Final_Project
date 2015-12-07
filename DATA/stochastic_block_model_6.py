@@ -2,11 +2,11 @@ import random
 from random import randint
 import sys
 #4000 4 0.005 0.0025
-num_nodes = 4000
+num_nodes = 1000
 num_partition = 4
 print num_nodes
-intra_prop = 0.00451
-inter_prop = 0.0025
+intra_prop = 0.01
+inter_prop = 0.01
 ans = []
 cnt = 0
 for i  in range(num_nodes):
@@ -30,7 +30,7 @@ for i in range(num_nodes):
           ans[i].append(j)
         if i not in ans[j]:
           ans[j].append(i)
-if abs(cnt - 24000) > 100: 
+if abs(cnt - 5000) > 100: 
   sys.exit("Edge number wrong!")
 for i in range(num_nodes):
   res =  str(len(ans[i])) + " "

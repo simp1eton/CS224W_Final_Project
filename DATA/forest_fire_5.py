@@ -2,16 +2,17 @@ import snap
 import sys
 import math
 #  4000 0.34 0.35
-num_nodes = 4000 
-forward_prob = 0.349
-backward_prob = 0.34
+num_nodes = 1000 
+forward_prob = 0.35
+backward_prob = 0.354
 g = snap.GenForestFire(num_nodes, forward_prob,backward_prob)
 print num_nodes
 
 cnt = 0
 for EI in g.Edges():
   cnt = cnt + 1
-if abs(cnt - 24000) > 200:
+print cnt
+if abs(cnt - 5000) > 200:
   sys.exit("Edges number wrong!")
 adj_list = []
 for i in range(num_nodes):
