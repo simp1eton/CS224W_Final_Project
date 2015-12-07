@@ -11,9 +11,6 @@ print num_nodes
 cnt = 0
 for EI in g.Edges():
   cnt = cnt + 1
-print cnt
-if abs(cnt - 5000) > 200:
-  sys.exit("Edges number wrong!")
 adj_list = []
 for i in range(num_nodes):
   adj_list.append([])
@@ -29,4 +26,3 @@ for i in range(num_nodes):
   for v in adj_list[i]:
     ans  = ans + " " + str(v)
   print ans
-print "number of edges : " , cnt

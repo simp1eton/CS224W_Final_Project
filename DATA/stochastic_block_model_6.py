@@ -30,11 +30,8 @@ for i in range(num_nodes):
           ans[i].append(j)
         if i not in ans[j]:
           ans[j].append(i)
-if abs(cnt - 5000) > 100: 
-  sys.exit("Edge number wrong!")
 for i in range(num_nodes):
   res =  str(len(ans[i])) + " "
   for v in ans[i]:
     res  = res + " " + str(v)
   print res
-print "number of edges :" , cnt
