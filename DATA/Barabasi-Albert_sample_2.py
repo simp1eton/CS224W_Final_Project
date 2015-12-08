@@ -2,8 +2,8 @@ import snap
 import sys
 
 # num nodes = 4000 num_edges_per_node = 6
-num_nodes = 4000
-num_edges_per_node = 6
+num_nodes = 1000
+num_edges_per_node = 5
 print num_nodes
 Rnd = snap.TRnd(0)
 g = snap.GenPrefAttach(num_nodes, num_edges_per_node, Rnd)
