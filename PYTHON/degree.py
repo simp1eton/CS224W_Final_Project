@@ -15,6 +15,7 @@ ans = [[] for _ in range(budget)]
 for i in range(1, 51):
     filename = "../DATA/mass_data/input" + `graph_type` + "-" + `i` + ".txt"
     G = read_file(filename)
+    start_time = time.time()
     G.preprocess()
     PQ = MaxHeap()
 
@@ -26,7 +27,6 @@ for i in range(1, 51):
 
     used = set()
 
-    start_time = time.time()
     for curr_budget in range(budget):
       while True:
         cur, val, aux = PQ.pop()
